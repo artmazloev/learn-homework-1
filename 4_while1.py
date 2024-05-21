@@ -16,7 +16,7 @@ def hello_user():
     """
     how_are_you = input("Как дела? ").lower()
     while how_are_you != "хорошо":
-      how_are_you = input("Как дела? ").lower()
+        how_are_you = input("Как дела? ").lower()
     print("Отлично! Рад, что так!")
     
 if __name__ == "__main__":
