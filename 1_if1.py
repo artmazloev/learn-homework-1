@@ -21,7 +21,7 @@ def main(age):
     В ней надо заменить pass на ваш код
     """
     input_age = age
-    
+
     if 0 < input_age < 7:
         profession_of_user = f"Ваш возраст {input_age}. Вы посещаете детский сад"
     elif input_age >= 7 and input_age < 17:
