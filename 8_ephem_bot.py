@@ -57,7 +57,7 @@ def talk_to_me(update, context):
 
 
 def main():
-    mybot = Updater("6327846313:AAGAy9UqugKIDykdy18huM9I3g7ZSPf23Ec",
+    mybot = Updater("ТОКЕН",
                     use_context=True)
 
     dp = mybot.dispatcher
