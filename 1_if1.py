@@ -15,6 +15,7 @@
 """
 user_input = int(input("Укажите свой возраст: "))
 
+
 def main(age):
     """
     Эта функция вызывается автоматически при запуске скрипта в консоли
@@ -34,11 +35,10 @@ def main(age):
         profession_of_user = f"Ваш возраст {input_age}. Возможно вы уже на пенсии"
     else:
         profession_of_user = f"Ваш возраст {input_age}. Мне сложно сказать чем вы занимаетесь. Попробуйте снова"
-    
+
     return profession_of_user
 
 
 if __name__ == "__main__":
     age_of_user = main(user_input)
     print(age_of_user)
-

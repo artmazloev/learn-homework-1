@@ -22,7 +22,6 @@ logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
                     filename='bot.log')
 
-
 PROXY = {
     'proxy_url': 'socks5://t1.learn.python.ru:1080',
     'urllib3_proxy_kwargs': {
@@ -31,17 +30,44 @@ PROXY = {
     }
 }
 
+planets_list = [
+    'Mercury',
+    'Venus',
+    'Mars',
+    'Jupiter',
+    'Saturn',
+    'Uranus',
+    'Neptune',
+    'Pluto',
+]
 
-def check_planet(update, context):  #     Не понял для чего в условии задачи упоминается ветвление if.
-    user_text = update.message.text
-    planet_name = user_text.split('_')[1]
-    print(planet_name)
-    try:
-        planet = getattr(ephem, planet_name)()
-        planet.compute()
-        planet_constellation = ephem.constellation(planet)
-    except Exception as e: print(f'Возникла ошибка {e}')
-    update.message.reply_text(f'Планета {planet_name} сегодня находится в созвездии {planet_constellation[1]}')
+command_prefix = "planet"
+
+
+def check_planet(update, context):
+    """
+    Функция-обработчик команды /planet
+    
+    """
+    command_parts = update.message.text.split()
+    if len(command_parts) == 2: # Проверка, что введены 2 слова через пробел
+        planet_name = command_parts[1].capitalize() # Наверное костыль, но это для того чтобы 
+                                       # в строке с созвездием выводить только название планеты, а не все данные объекта полученного из Ephem
+        planet = planet_name
+        if planet_name in planets_list:
+            planet = getattr(ephem, planet)()
+            planet.compute()
+            planet_constellation = ephem.constellation(planet)
+            update.message.reply_text(
+                f'Планета {planet_name} сегодня находится в созвездии {planet_constellation[1]}'
+            )
+        else:
+            update.message.reply_text(
+                'Неизвестная планета. Пожалуйста, введите латинское название одной из известных планет. Например, "/planet Mars"'
+            )
+    else:
+        update.message.reply_text(
+            "Неправильный формат команды. Используйте /planet <имя планеты>.")
 
 
 def greet_user(update, context):
@@ -57,13 +83,13 @@ def talk_to_me(update, context):
 
 
 def main():
-    mybot = Updater("ТОКЕН",
+    mybot = Updater("6327846313:AAGAy9UqugKIDykdy18huM9I3g7ZSPf23Ec",
                     use_context=True)
 
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
-    # dp.add_handler(MessageHandler(Filters.text, talk_to_me))
-    dp.add_handler(CommandHandler("planet_Mars", check_planet))
+    dp.add_handler(CommandHandler(command_prefix, check_planet))
+    dp.add_handler(MessageHandler(Filters.text, talk_to_me))
 
     mybot.start_polling()
     mybot.idle()
