@@ -43,8 +43,7 @@ def ask_user(answers_dict):
     while first_question in questions_and_answers:
         print(questions_and_answers[first_question])
         first_question = (input("Следующий вопрос: ")).capitalize()
-    if first_question not in questions_and_answers:
-        print('Я не знаю ответа на этот вопрос. \nПока!')
+    
 
 
 if __name__ == "__main__":
