@@ -13,6 +13,7 @@
      
 """
 
+
 def discounted(price, discount, max_discount=20):
     try:
         price = float(abs(price))
@@ -28,7 +29,8 @@ def discounted(price, discount, max_discount=20):
         return price
     else:
         return price - (price * discount / 100)
-    
+
+
 if __name__ == "__main__":
     print(discounted(100, 2))
     print(discounted(100, "3"))
